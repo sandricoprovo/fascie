@@ -1,0 +1,7 @@
+/node_modules
+/data_model
+.DS_Store
+.env
+.env_local
+.env_prod
+/dev_database
