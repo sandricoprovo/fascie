@@ -1,0 +1,3 @@
+interface TEST {
+    db: string;
+}
