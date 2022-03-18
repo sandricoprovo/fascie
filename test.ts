@@ -1,3 +1,0 @@
-interface TEST {
-    db: string;
-}
