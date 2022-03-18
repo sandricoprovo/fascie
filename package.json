@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "start": "npx nodemon ./server/index.ts",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "client": "cd ./client && next dev",
+        "client-build": "cd ./client && next build",
+        "client-start": "cd ./client && next start"
     },
     "keywords": [],
     "author": "",
