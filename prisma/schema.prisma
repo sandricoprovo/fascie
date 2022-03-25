@@ -61,6 +61,14 @@ model User {
     follows   Business_Followers[]
 }
 
+model Category {
+    id         Int                   @id @default(autoincrement())
+    createdAt  DateTime              @default(now())
+    updatedAt  DateTime              @updatedAt
+    category   String                @db.VarChar(100)
+    businesses Business_Categories[]
+}
+
 model Business_Followers {
     business   Business @relation(fields: [businessId], references: [id])
     businessId Int
@@ -69,14 +77,6 @@ model Business_Followers {
     followDate DateTime @default(now())
 
     @@id([businessId, userId])
-}
-
-model Category {
-    id         Int                   @id @default(autoincrement())
-    createdAt  DateTime              @default(now())
-    updatedAt  DateTime              @updatedAt
-    category   String                @db.VarChar(100)
-    businesses Business_Categories[]
 }
 
 model Business_Categories {

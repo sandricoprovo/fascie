@@ -7,7 +7,11 @@
         "start": "npx nodemon ./server/index.ts",
         "client": "cd ./client && next dev",
         "client-build": "cd ./client && next build",
-        "client-start": "cd ./client && next start"
+        "client-start": "cd ./client && next start",
+        "reset-db": "npx prisma migrate reset"
+    },
+    "prisma": {
+        "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
     },
     "keywords": [],
     "author": "",
@@ -33,12 +37,12 @@
         "eslint-plugin-react": "^7.29.4",
         "eslint-plugin-react-hooks": "^4.3.0",
         "prettier": "^2.6.0",
-        "prisma": "^3.11.0",
+        "prisma": "^3.11.1",
         "ts-node": "^10.7.0",
         "typescript": "^4.6.2"
     },
     "dependencies": {
-        "@prisma/client": "^3.11.0",
+        "@prisma/client": "^3.11.1",
         "express": "^4.17.3"
     }
 }
