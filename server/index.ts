@@ -1,6 +1,6 @@
 import express from 'express';
 
-import businessRouter from './routes/businesses';
+import { businessRouter } from './routes';
 
 const server = express();
 
