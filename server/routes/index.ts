@@ -1,3 +1,4 @@
-import businessRouter from './businesses/businesses';
+import businessRouter from './businesses';
+import locationRouter from './locations';
 
-export { businessRouter };
+export { businessRouter, locationRouter };
