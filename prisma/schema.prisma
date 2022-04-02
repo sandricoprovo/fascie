@@ -10,7 +10,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Business {
+model Businesses {
     id           Int                   @id @default(autoincrement())
     createdAt    DateTime              @default(now())
     updatedAt    DateTime              @updatedAt
@@ -25,33 +25,34 @@ model Business {
     twitter      String?               @db.VarChar(150)
     facebook     String?               @db.VarChar(150)
     instagram    String?               @db.VarChar(150)
-    location     Location              @relation(fields: [locationId], references: [id])
+    location     Locations             @relation(fields: [locationId], references: [id])
     locationId   Int
-    testimonials Testimonial[]
+    keywords     String[]
+    testimonials Testimonials[]
     followers    Business_Followers[]
     categories   Business_Categories[]
 }
 
-model Location {
-    id            Int        @id @default(autoincrement())
-    createdAt     DateTime   @default(now())
-    updatedAt     DateTime   @updatedAt
-    location      String     @db.VarChar(255)
-    provinceState String     @db.VarChar(200)
-    country       String     @db.VarChar(200)
-    businesses    Business[]
+model Locations {
+    id            Int          @id @default(autoincrement())
+    createdAt     DateTime     @default(now())
+    updatedAt     DateTime     @updatedAt
+    location      String       @db.VarChar(255)
+    provinceState String       @db.VarChar(200)
+    country       String       @db.VarChar(200)
+    businesses    Businesses[]
 }
 
-model Testimonial {
-    id          Int      @id @default(autoincrement())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    testimonial String   @db.VarChar(255)
-    business    Business @relation(fields: [businessId], references: [id])
+model Testimonials {
+    id          Int        @id @default(autoincrement())
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    testimonial String     @db.VarChar(255)
+    business    Businesses @relation(fields: [businessId], references: [id])
     businessId  Int
 }
 
-model User {
+model Users {
     id        Int                  @id @default(autoincrement())
     createdAt DateTime             @default(now())
     updatedAt DateTime             @updatedAt
@@ -61,7 +62,7 @@ model User {
     follows   Business_Followers[]
 }
 
-model Category {
+model Categories {
     id         Int                   @id @default(autoincrement())
     createdAt  DateTime              @default(now())
     updatedAt  DateTime              @updatedAt
@@ -70,21 +71,21 @@ model Category {
 }
 
 model Business_Followers {
-    business   Business @relation(fields: [businessId], references: [id])
+    business   Businesses @relation(fields: [businessId], references: [id])
     businessId Int
-    user       User     @relation(fields: [userId], references: [id])
+    user       Users      @relation(fields: [userId], references: [id])
     userId     Int
-    followDate DateTime @default(now())
+    followDate DateTime   @default(now())
 
     @@id([businessId, userId])
 }
 
 model Business_Categories {
-    business   Business @relation(fields: [businessId], references: [id])
+    business   Businesses @relation(fields: [businessId], references: [id])
     businessId Int
-    category   Category @relation(fields: [categoryId], references: [id])
+    category   Categories @relation(fields: [categoryId], references: [id])
     categoryId Int
-    createdAt  DateTime @default(now())
+    createdAt  DateTime   @default(now())
 
     @@id([businessId, categoryId])
 }

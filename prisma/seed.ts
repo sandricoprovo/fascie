@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 // Async function to seed the database for test data
 async function seed() {
-    const halifax = await prisma.location.create({
+    const halifax = await prisma.locations.create({
         data: {
             id: SEED_IDS.halifax,
             location: 'Halifax',
@@ -56,7 +56,7 @@ async function seed() {
             },
         },
     });
-    const wolfville = await prisma.location.create({
+    const wolfville = await prisma.locations.create({
         data: {
             id: SEED_IDS.wolfville,
             location: 'Wolfville',
@@ -106,7 +106,7 @@ async function seed() {
             },
         },
     });
-    const lunenburg = await prisma.location.create({
+    const lunenburg = await prisma.locations.create({
         data: {
             id: SEED_IDS.lunenburg,
             location: 'Lunenburg',

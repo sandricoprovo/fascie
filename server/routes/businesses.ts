@@ -8,7 +8,7 @@ router
     .route('/')
     .get(async (req, res) => {
         // Grabs all businesses from the DB
-        const businessesList = await prisma.business.findMany({
+        const businessesList = await prisma.businesses.findMany({
             include: {
                 _count: true,
                 categories: { select: { category: true } },
@@ -33,7 +33,7 @@ router
         const businessId = req.params.id;
 
         // Grabs a single business based on id
-        const business = await prisma.business.findFirst({
+        const business = await prisma.businesses.findFirst({
             where: {
                 id: parseInt(businessId),
             },

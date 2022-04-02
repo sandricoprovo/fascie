@@ -5,14 +5,14 @@ const router = Router();
 const prisma = new PrismaClient();
 
 router.route('/').get(async (req, res) => {
-    const locations = await prisma.location.findMany();
+    const locations = await prisma.locations.findMany();
     res.status(200).send({ locations });
 });
 
 router.route('/:id').get(async (req, res) => {
     const locationId = parseInt(req.params.id);
     // Grabs a location, and its associated businesses
-    const location = await prisma.location.findFirst({
+    const location = await prisma.locations.findFirst({
         where: {
             id: locationId,
         },
