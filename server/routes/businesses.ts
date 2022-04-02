@@ -77,7 +77,7 @@ router
         res.status(200).json({ message: 'Create delete business endpoint' });
     });
 
-router.route('/:id/add-follower').put((req, res) => {
+router.route('/:id/update-followers').put((req, res) => {
     // TODO: Implement endpoint & make async
     res.status(200).json({ message: 'Create update business endpoint' });
 });
