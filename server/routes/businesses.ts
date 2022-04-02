@@ -4,22 +4,47 @@ import { PrismaClient } from '@prisma/client';
 const router = Router();
 const prisma = new PrismaClient();
 
+// Uses an abstracted list of included fields so they can be re-used.
+const FIELDS_TO_INCLUDE = {
+    _count: true,
+    categories: { select: { category: true } },
+    location: true,
+    testimonials: true,
+};
+
 router
     .route('/')
     .get(async (req, res) => {
-        // Grabs all businesses from the DB
-        const businessesList = await prisma.businesses.findMany({
-            include: {
-                _count: true,
-                categories: { select: { category: true } },
-                location: true,
-                testimonials: true,
+        const queryKeywords = req.query.keywords as string;
+        const searchKeywords = queryKeywords && queryKeywords.split(' ');
+
+        // Doesn't filter businesses if no searchKeywords are present
+        if (!searchKeywords) {
+            // Grabs all businesses from the DB
+            const businessesList = await prisma.businesses.findMany({
+                include: FIELDS_TO_INCLUDE,
+            });
+
+            // Returns business to client
+            res.status(200).json({
+                businesses: businessesList,
+            });
+            return;
+        }
+
+        // Grabs all businesses from the DB that has matching keywords
+        const keywordBusinessesList = await prisma.businesses.findMany({
+            where: {
+                keywords: {
+                    hasSome: searchKeywords,
+                },
             },
+            include: FIELDS_TO_INCLUDE,
         });
 
         // Returns business to client
         res.status(200).json({
-            businesses: businessesList,
+            businesses: keywordBusinessesList,
         });
     })
     .post((req, res) => {
@@ -37,12 +62,7 @@ router
             where: {
                 id: parseInt(businessId),
             },
-            include: {
-                _count: true,
-                categories: { select: { category: true } },
-                location: true,
-                testimonials: true,
-            },
+            include: FIELDS_TO_INCLUDE,
         });
 
         // Returns business to client
