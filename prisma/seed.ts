@@ -24,6 +24,12 @@ async function seed() {
                     twitter: 'https://twitter.com/sandricoprovo',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: [
+                        'software',
+                        'agency',
+                        'web development',
+                        'service',
+                    ],
                     followers: {
                         create: {
                             user: {
@@ -73,6 +79,7 @@ async function seed() {
                     website: 'https://sandricoprovo.dev',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: ['audio', 'music', 'equipment'],
                     followers: {
                         create: {
                             user: {
@@ -123,6 +130,7 @@ async function seed() {
                     website: 'https://sandricoprovo.dev',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: ['computer', 'hardware', 'macbook', 'repair'],
                     followers: {
                         create: {
                             user: {
