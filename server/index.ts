@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { businessRouter, locationRouter } from './routes';
+import { businessRouter, locationRouter, categoryRouter } from './routes';
 
 const server = express();
 
@@ -11,6 +11,7 @@ server.use(express.json());
 // Routers
 server.use('/businesses', businessRouter);
 server.use('/locations', locationRouter);
+server.use('/categories', categoryRouter);
 
 server.listen(4000, () =>
     console.log('Server ready at: http://localhost:4000')
