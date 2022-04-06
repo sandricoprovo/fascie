@@ -1,5 +1,4 @@
 export const mockBusiness = {
-    id: 38475938,
     ownerName: 'Kakashi Sensei',
     businessName: 'Ninja Training',
     hasPaidFee: true,
@@ -11,7 +10,7 @@ export const mockBusiness = {
     facebook: 'https://www.facebook.com/sandrico3.0',
     instagram: 'https://www.instagram.com/sandricop/',
     twitter: null,
-    locationId: 66480517,
+    locationId: 1,
     keywords: ['ninja', 'training', 'jutsu', 'copy cat'],
     category: 'education',
 };

@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 
-import { getRandomId } from '../utils';
-
 // MOCK
 import { mockBusiness } from '../mock/mockBusiness';
 // MOCK
@@ -13,7 +11,7 @@ const prisma = new PrismaClient();
 // Uses an abstracted list of included fields so they can be re-used.
 const FIELDS_TO_INCLUDE = {
     _count: true,
-    categories: { select: { category: true } },
+    category: true,
     location: true,
     testimonials: true,
 };
@@ -84,7 +82,9 @@ router
                 hasPaidFee,
                 instagram,
                 location: {
-                    connect: { id: locationId },
+                    connect: {
+                        id: locationId,
+                    },
                 },
                 keywords,
                 twitter,
@@ -96,7 +96,28 @@ router
                 },
             },
             select: {
+                id: true,
                 category: true,
+                businessName: true,
+                email: true,
+                hasShipping: true,
+                ownerName: true,
+                password: true,
+                bannerImg: true,
+                facebook: true,
+                hasPaidFee: true,
+                instagram: true,
+                keywords: true,
+                twitter: true,
+                website: true,
+                location: {
+                    select: {
+                        id: true,
+                        country: true,
+                        location: true,
+                        provinceState: true,
+                    },
+                },
             },
         });
 

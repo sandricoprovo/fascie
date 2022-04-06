@@ -28,11 +28,7 @@ router.route('/:id').get(async (req, res) => {
                 },
                 include: {
                     _count: true,
-                    categories: {
-                        include: {
-                            category: true,
-                        },
-                    },
+                    category: true,
                 },
             },
         },
