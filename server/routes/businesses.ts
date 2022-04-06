@@ -55,7 +55,6 @@ router
     })
     .post(async (req, res) => {
         const {
-            id,
             ownerName,
             businessName,
             hasPaidFee,
@@ -72,7 +71,7 @@ router
             twitter,
         } = mockBusiness;
 
-        // TODO: Implement endpoint & make async
+        // MOCK Business add
         const newBusiness = await prisma.businesses.create({
             data: {
                 businessName,
@@ -83,25 +82,21 @@ router
                 bannerImg,
                 facebook,
                 hasPaidFee,
-                id: getRandomId(),
                 instagram,
-                locationId,
+                location: {
+                    connect: { id: locationId },
+                },
                 keywords,
                 twitter,
                 website,
-                categories: {
+                category: {
                     create: {
-                        category: {
-                            create: {
-                                category,
-                                id: getRandomId(),
-                            },
-                        },
+                        category,
                     },
                 },
             },
             select: {
-                categories: true,
+                category: true,
             },
         });
 

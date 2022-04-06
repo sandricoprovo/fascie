@@ -11,26 +11,27 @@ datasource db {
 }
 
 model Businesses {
-    id           Int                   @id @default(autoincrement())
-    createdAt    DateTime              @default(now())
-    updatedAt    DateTime              @updatedAt
-    ownerName    String                @db.VarChar(255)
-    businessName String                @db.VarChar(255)
-    hasPaidFee   Boolean               @default(false)
-    email        String                @unique
-    password     String                @db.VarChar(30)
-    hasShipping  Boolean
-    bannerImg    String?               @db.VarChar(150)
-    website      String?               @db.VarChar(150)
-    twitter      String?               @db.VarChar(150)
-    facebook     String?               @db.VarChar(150)
-    instagram    String?               @db.VarChar(150)
-    location     Locations             @relation(fields: [locationId], references: [id])
-    locationId   Int
+    id           Int                  @id @default(autoincrement())
+    createdAt    DateTime             @default(now())
+    updatedAt    DateTime             @updatedAt
+    ownerName    String               @db.VarChar(255)
+    businessName String               @db.VarChar(255)
+    hasPaidFee   Boolean              @default(false)
+    hasShipping  Boolean              @default(false)
+    email        String               @unique
+    password     String
+    bannerImg    String?              @db.VarChar(150)
+    website      String?              @db.VarChar(150)
+    twitter      String?              @db.VarChar(150)
+    facebook     String?              @db.VarChar(150)
+    instagram    String?              @db.VarChar(150)
+    location     Locations            @relation(fields: [locationId], references: [id])
+    locationId   Int                  @db.Integer
     keywords     String[]
     testimonials Testimonials[]
     followers    Business_Followers[]
-    categories   Business_Categories[]
+    category     Categories           @relation(fields: [categoriesId], references: [id])
+    categoriesId Int
 }
 
 model Locations {
@@ -63,29 +64,19 @@ model Users {
 }
 
 model Categories {
-    id         Int                   @id @default(autoincrement())
-    createdAt  DateTime              @default(now())
-    updatedAt  DateTime              @updatedAt
-    category   String                @db.VarChar(100)
-    businesses Business_Categories[]
+    id         Int          @id @default(autoincrement())
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt
+    category   String       @db.VarChar(100)
+    businesses Businesses[]
 }
 
 model Business_Followers {
     business   Businesses @relation(fields: [businessId], references: [id])
-    businessId Int
+    businessId Int        @db.Integer
     user       Users      @relation(fields: [userId], references: [id])
-    userId     Int
+    userId     Int        @db.Integer
     followDate DateTime   @default(now())
 
     @@id([businessId, userId])
-}
-
-model Business_Categories {
-    business   Businesses @relation(fields: [businessId], references: [id])
-    businessId Int
-    category   Categories @relation(fields: [categoryId], references: [id])
-    categoryId Int
-    createdAt  DateTime   @default(now())
-
-    @@id([businessId, categoryId])
 }
