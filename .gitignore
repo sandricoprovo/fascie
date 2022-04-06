@@ -6,3 +6,4 @@
 .env_prod
 /dev_database
 /coverage
+/pseudocode.md
