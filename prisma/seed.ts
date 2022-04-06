@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import { SEED_IDS } from './seedData';
+import { SEED_IDS } from './seedUtils';
 
 const prisma = new PrismaClient();
 

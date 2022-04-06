@@ -1,6 +1,12 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 
+import { getRandomId } from '../utils';
+
+// MOCK
+import { mockBusiness } from '../mock/mockBusiness';
+// MOCK
+
 const router = Router();
 const prisma = new PrismaClient();
 
@@ -47,9 +53,59 @@ router
             businesses: keywordBusinessesList,
         });
     })
-    .post((req, res) => {
+    .post(async (req, res) => {
+        const {
+            id,
+            ownerName,
+            businessName,
+            hasPaidFee,
+            email,
+            password,
+            hasShipping,
+            bannerImg,
+            website,
+            facebook,
+            instagram,
+            locationId,
+            keywords,
+            category,
+            twitter,
+        } = mockBusiness;
+
         // TODO: Implement endpoint & make async
-        res.status(200).json({ message: 'Create Add business endpoint' });
+        const newBusiness = await prisma.businesses.create({
+            data: {
+                businessName,
+                email,
+                hasShipping,
+                ownerName,
+                password,
+                bannerImg,
+                facebook,
+                hasPaidFee,
+                id: getRandomId(),
+                instagram,
+                locationId,
+                keywords,
+                twitter,
+                website,
+                categories: {
+                    create: {
+                        category: {
+                            create: {
+                                category,
+                                id: getRandomId(),
+                            },
+                        },
+                    },
+                },
+            },
+            select: {
+                categories: true,
+            },
+        });
+
+        res.status(200).json({ business: newBusiness });
     });
 
 router
