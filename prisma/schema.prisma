@@ -19,7 +19,7 @@ model Businesses {
     hasPaidFee   Boolean              @default(false)
     hasShipping  Boolean              @default(false)
     email        String               @unique
-    password     String
+    password     String               @db.VarChar(40)
     bannerImg    String?              @db.VarChar(150)
     website      String?              @db.VarChar(150)
     twitter      String?              @db.VarChar(150)
@@ -67,7 +67,7 @@ model Categories {
     id         Int          @id @default(autoincrement())
     createdAt  DateTime     @default(now())
     updatedAt  DateTime     @updatedAt
-    category   String       @db.VarChar(100)
+    category   String       @unique @db.VarChar(100)
     businesses Businesses[]
 }
 
