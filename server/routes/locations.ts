@@ -3,9 +3,6 @@ import { PrismaClient } from '@prisma/client';
 
 import { LocationPayload } from '../types';
 
-// MOCK
-import { mockLocation } from '../mock/mockLocation';
-
 const router = Router();
 const prisma = new PrismaClient();
 
