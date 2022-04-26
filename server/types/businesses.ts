@@ -1,4 +1,4 @@
-export interface BusinessPayload {
+interface BusinessFields {
     ownerName: string;
     businessName: string;
     hasPaidFee: boolean;
@@ -14,3 +14,9 @@ export interface BusinessPayload {
     category: string;
     twitter: string;
 }
+
+export interface Business extends BusinessFields {
+    id: number;
+}
+
+export type BusinessPayload = BusinessFields;

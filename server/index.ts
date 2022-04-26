@@ -1,18 +1,17 @@
-import express from 'express';
+import server from './server';
 
-import { businessRouter, locationRouter, categoryRouter } from './routes';
+function liftServer(port: number) {
+    try {
+        // Starts the server at the passed port
+        server.listen(port, () =>
+            console.log(`Server ready at: http://localhost:${port}`)
+        );
+    } catch (error) {
+        // Catches any error lifting the server and exits the process
+        console.error(error);
+        process.exit();
+    }
+}
 
-const server = express();
-
-// Express Middleware
-server.use(express.urlencoded({ extended: true }));
-server.use(express.json());
-
-// Routers
-server.use('/businesses', businessRouter);
-server.use('/locations', locationRouter);
-server.use('/categories', categoryRouter);
-
-server.listen(4000, () =>
-    console.log('Server ready at: http://localhost:4000')
-);
+// Starts the server
+liftServer(4000);

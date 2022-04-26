@@ -1,5 +1,5 @@
-import { BusinessPayload } from './businesses';
+import { Business, BusinessPayload } from './businesses';
 import { LocationPayload } from './locations';
 import { CategoryPayload } from './categories';
 
-export { BusinessPayload, LocationPayload, CategoryPayload };
+export { Business, BusinessPayload, LocationPayload, CategoryPayload };
