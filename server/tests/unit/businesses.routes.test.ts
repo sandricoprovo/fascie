@@ -4,14 +4,14 @@ import { Business } from '../../types/businesses';
 import server from '../../server';
 
 describe('Business Endpoints Test', () => {
-    test('GET /businesses ', async () => {
+    test('GET ALL /businesses ', async () => {
         await request(server)
             .get('/businesses')
             .expect('Content-Type', /json/)
             .expect(200)
             .expect((res) => Array.isArray(res.body));
     });
-    test('GET /business ', async () => {
+    test('GET /businesses ', async () => {
         const testBusinessId = 1;
         await request(server)
             .get(`/businesses/${testBusinessId}`)
