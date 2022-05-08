@@ -1,13 +1,11 @@
 {
-    "name": "0026_fascie",
+    "name": "fascie",
+    "productName": "Fascie API",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "scripts": {
         "start": "npx nodemon ./server/index.ts",
-        "client": "cd ./client && next dev",
-        "client-build": "cd ./client && next build",
-        "client-start": "cd ./client && next start",
         "reset-db": "npx prisma migrate reset",
         "test": "jest",
         "coverage": "npx jest --coverage",
