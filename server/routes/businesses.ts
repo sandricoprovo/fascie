@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 
-import { BusinessPayload } from '../types';
+import { BusinessPayload } from '../types/businesses';
 
 const router = Router();
 const prisma = new PrismaClient();

@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-import { Business } from '../../types';
+import { Business } from '../../types/businesses';
 import server from '../../server';
 
 describe('Business Endpoints Test', () => {

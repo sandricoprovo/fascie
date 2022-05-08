@@ -1,6 +1,8 @@
 import express from 'express';
 
-import { businessRouter, locationRouter, categoryRouter } from './routes';
+import businessesRouter from './routes/businesses';
+import locationsRouter from './routes/locations';
+import categoriesRouter from './routes/categories';
 
 const server = express();
 
@@ -9,8 +11,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 // Routers
-server.use('/businesses', businessRouter);
-server.use('/locations', locationRouter);
-server.use('/categories', categoryRouter);
+server.use('/businesses', businessesRouter);
+server.use('/locations', locationsRouter);
+server.use('/categories', categoriesRouter);
 
 export default server;

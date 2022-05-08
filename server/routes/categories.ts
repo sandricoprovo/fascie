@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { PrismaClient } from '@prisma/client';
 
-import { CategoryPayload } from '../types';
+import { CategoryPayload } from '../types/categories';
 
 const router = Router();
 const prisma = new PrismaClient();
