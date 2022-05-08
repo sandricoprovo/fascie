@@ -1,20 +1,34 @@
 import { PrismaClient } from '@prisma/client';
 
-import { SEED_IDS } from './seedData';
-
 const prisma = new PrismaClient();
 
 // Async function to seed the database for test data
 async function seed() {
-    const halifax = await prisma.location.create({
+    // CATEGORIES
+    const softwareCategory = await prisma.categories.create({
         data: {
-            id: SEED_IDS.halifax,
+            category: 'software',
+        },
+    });
+    const hardwareCategory = await prisma.categories.create({
+        data: {
+            category: 'hardware',
+        },
+    });
+    const audioCategory = await prisma.categories.create({
+        data: {
+            category: 'audio',
+        },
+    });
+
+    // LOCATIONS / BUSINESSES / USERS
+    const halifax = await prisma.locations.create({
+        data: {
             location: 'Halifax',
             country: 'Canada',
             provinceState: 'Nova Scotia',
             businesses: {
                 create: {
-                    id: SEED_IDS.samsonUI,
                     businessName: 'Samson UI',
                     email: 'samsonui@example.com',
                     password: 'samson123',
@@ -24,11 +38,17 @@ async function seed() {
                     twitter: 'https://twitter.com/sandricoprovo',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: [
+                        'software',
+                        'agency',
+                        'web development',
+                        'service',
+                    ],
+                    categoriesId: softwareCategory.id,
                     followers: {
                         create: {
                             user: {
                                 create: {
-                                    id: SEED_IDS.sasukeUchiha,
                                     name: 'Sasuke Uchiha',
                                     email: 'sasuke@example.com',
                                     password: 'sasuke123',
@@ -36,19 +56,8 @@ async function seed() {
                             },
                         },
                     },
-                    categories: {
-                        create: {
-                            category: {
-                                create: {
-                                    id: SEED_IDS.softwareCategory,
-                                    category: 'Software',
-                                },
-                            },
-                        },
-                    },
                     testimonials: {
                         create: {
-                            id: SEED_IDS.testimonialOne,
                             testimonial: 'Nope, nope nope.',
                         },
                     },
@@ -56,15 +65,13 @@ async function seed() {
             },
         },
     });
-    const wolfville = await prisma.location.create({
+    const wolfville = await prisma.locations.create({
         data: {
-            id: SEED_IDS.wolfville,
             location: 'Wolfville',
             country: 'Canada',
             provinceState: 'Nova Scotia',
             businesses: {
                 create: {
-                    id: SEED_IDS.yetiAudio,
                     businessName: 'Yeti Audio',
                     email: 'yetiaudio@example.com',
                     password: 'yeti123',
@@ -73,11 +80,12 @@ async function seed() {
                     website: 'https://sandricoprovo.dev',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: ['audio', 'music', 'equipment'],
+                    categoriesId: audioCategory.id,
                     followers: {
                         create: {
                             user: {
                                 create: {
-                                    id: SEED_IDS.narutoUzimaki,
                                     name: 'Naruto Uzimaki',
                                     email: 'naruto@example.com',
                                     password: 'naruto123',
@@ -85,19 +93,8 @@ async function seed() {
                             },
                         },
                     },
-                    categories: {
-                        create: {
-                            category: {
-                                create: {
-                                    id: SEED_IDS.techHardwareCategory,
-                                    category: 'Tech Hardware',
-                                },
-                            },
-                        },
-                    },
                     testimonials: {
                         create: {
-                            id: SEED_IDS.testimonialTwo,
                             testimonial:
                                 'Tried this place out and the owner is super nice.',
                         },
@@ -106,15 +103,13 @@ async function seed() {
             },
         },
     });
-    const lunenburg = await prisma.location.create({
+    const lunenburg = await prisma.locations.create({
         data: {
-            id: SEED_IDS.lunenburg,
             location: 'Lunenburg',
             country: 'Canada',
             provinceState: 'Nova Scotia',
             businesses: {
                 create: {
-                    id: SEED_IDS.macHardware,
                     businessName: 'Mac Hardware',
                     email: 'machardware@example.com',
                     password: 'mac123',
@@ -123,11 +118,12 @@ async function seed() {
                     website: 'https://sandricoprovo.dev',
                     instagram: 'https://www.instagram.com/sandricop/',
                     facebook: 'https://www.facebook.com/sandrico3.0',
+                    keywords: ['computer', 'hardware', 'macbook', 'repair'],
+                    categoriesId: hardwareCategory.id,
                     followers: {
                         create: {
                             user: {
                                 create: {
-                                    id: SEED_IDS.urzaScarlet,
                                     name: 'Urza Scarlet',
                                     email: 'urzascarlet@example.com',
                                     password: 'urza123',
@@ -135,19 +131,8 @@ async function seed() {
                             },
                         },
                     },
-                    categories: {
-                        create: {
-                            category: {
-                                create: {
-                                    id: SEED_IDS.audioCategory,
-                                    category: 'Audio',
-                                },
-                            },
-                        },
-                    },
                     testimonials: {
                         create: {
-                            id: SEED_IDS.testimonialThree,
                             testimonial: 'This is the best business ever!',
                         },
                     },

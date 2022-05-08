@@ -10,48 +10,50 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Business {
-    id           Int                   @id @default(autoincrement())
-    createdAt    DateTime              @default(now())
-    updatedAt    DateTime              @updatedAt
-    ownerName    String                @db.VarChar(255)
-    businessName String                @db.VarChar(255)
-    hasPaidFee   Boolean               @default(false)
-    email        String                @unique
-    password     String                @db.VarChar(30)
-    hasShipping  Boolean
-    bannerImg    String?               @db.VarChar(150)
-    website      String?               @db.VarChar(150)
-    twitter      String?               @db.VarChar(150)
-    facebook     String?               @db.VarChar(150)
-    instagram    String?               @db.VarChar(150)
-    location     Location              @relation(fields: [locationId], references: [id])
-    locationId   Int
-    testimonials Testimonial[]
+model Businesses {
+    id           Int                  @id @default(autoincrement())
+    createdAt    DateTime             @default(now())
+    updatedAt    DateTime             @updatedAt
+    ownerName    String               @db.VarChar(255)
+    businessName String               @db.VarChar(255)
+    hasPaidFee   Boolean              @default(false)
+    hasShipping  Boolean              @default(false)
+    email        String               @unique
+    password     String               @db.VarChar(40)
+    bannerImg    String?              @db.VarChar(150)
+    website      String?              @db.VarChar(150)
+    twitter      String?              @db.VarChar(150)
+    facebook     String?              @db.VarChar(150)
+    instagram    String?              @db.VarChar(150)
+    location     Locations            @relation(fields: [locationId], references: [id])
+    locationId   Int                  @db.Integer
+    keywords     String[]
+    testimonials Testimonials[]
     followers    Business_Followers[]
-    categories   Business_Categories[]
+    category     Categories           @relation(fields: [categoriesId], references: [id])
+    categoriesId Int
 }
 
-model Location {
-    id            Int        @id @default(autoincrement())
-    createdAt     DateTime   @default(now())
-    updatedAt     DateTime   @updatedAt
-    location      String     @db.VarChar(255)
-    provinceState String     @db.VarChar(200)
-    country       String     @db.VarChar(200)
-    businesses    Business[]
+model Locations {
+    id            Int          @id @default(autoincrement())
+    createdAt     DateTime     @default(now())
+    updatedAt     DateTime     @updatedAt
+    location      String       @db.VarChar(255)
+    provinceState String       @db.VarChar(200)
+    country       String       @db.VarChar(200)
+    businesses    Businesses[]
 }
 
-model Testimonial {
-    id          Int      @id @default(autoincrement())
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    testimonial String   @db.VarChar(255)
-    business    Business @relation(fields: [businessId], references: [id])
+model Testimonials {
+    id          Int        @id @default(autoincrement())
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    testimonial String     @db.VarChar(255)
+    business    Businesses @relation(fields: [businessId], references: [id])
     businessId  Int
 }
 
-model User {
+model Users {
     id        Int                  @id @default(autoincrement())
     createdAt DateTime             @default(now())
     updatedAt DateTime             @updatedAt
@@ -61,30 +63,20 @@ model User {
     follows   Business_Followers[]
 }
 
-model Category {
-    id         Int                   @id @default(autoincrement())
-    createdAt  DateTime              @default(now())
-    updatedAt  DateTime              @updatedAt
-    category   String                @db.VarChar(100)
-    businesses Business_Categories[]
+model Categories {
+    id         Int          @id @default(autoincrement())
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt
+    category   String       @unique @db.VarChar(100)
+    businesses Businesses[]
 }
 
 model Business_Followers {
-    business   Business @relation(fields: [businessId], references: [id])
-    businessId Int
-    user       User     @relation(fields: [userId], references: [id])
-    userId     Int
-    followDate DateTime @default(now())
+    business   Businesses @relation(fields: [businessId], references: [id])
+    businessId Int        @db.Integer
+    user       Users      @relation(fields: [userId], references: [id])
+    userId     Int        @db.Integer
+    followDate DateTime   @default(now())
 
     @@id([businessId, userId])
-}
-
-model Business_Categories {
-    business   Business @relation(fields: [businessId], references: [id])
-    businessId Int
-    category   Category @relation(fields: [categoryId], references: [id])
-    categoryId Int
-    createdAt  DateTime @default(now())
-
-    @@id([businessId, categoryId])
 }
